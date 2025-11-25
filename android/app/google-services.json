@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "223810171939",
+    "project_id": "doc-circle",
+    "storage_bucket": "doc-circle.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223810171939:android:78b1996c626e029c9fad96",
+        "android_client_info": {
+          "package_name": "com.example.medcon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223810171939-4r3652fhddgh876rphv2vequ5hntu3v9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCojKQ_Wps9a2r8yJ8heau54DZe7Lcv6kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223810171939-4r3652fhddgh876rphv2vequ5hntu3v9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
