@@ -7,14 +7,11 @@ class PostInitial extends PostState {}
 class PostLoading extends PostState {}
 
 class PostLoaded extends PostState {
-  final Stream<List<PostModel>> posts;
+  final List<PostModel> posts;
   PostLoaded({required this.posts});
 }
 
-class PostCreated extends PostState {
-  final PostModel postModel;
-  PostCreated({required this.postModel});
-}
+class PostUploading extends PostState {}
 
 class PostVoted extends PostState {
   final String postId;

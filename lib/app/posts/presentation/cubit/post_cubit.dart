@@ -12,21 +12,27 @@ class PostCubit extends Cubit<PostState> {
     try {
       emit(PostLoading());
       await postRepo.createPost(postModel: postModel);
-      emit(PostCreated(postModel: postModel));
+      getAllPostsCubit();
     } catch (e) {
       emit(PostError(message: e.toString()));
     }
   }
 
-  Stream<List<PostModel>> getPostsCubit() {
+  Future<void> deletePostCubit({required String postId}) async {
     try {
-      emit(PostLoading());
-      final posts = postRepo.getPosts();
-      emit(PostLoaded(posts: posts));
-      return posts;
+      await postRepo.deletePost(postId: postId);
     } catch (e) {
       emit(PostError(message: e.toString()));
-      return Stream.empty();
+    }
+  }
+
+  Future<void> getAllPostsCubit() async {
+    try {
+      emit(PostLoading());
+      final posts = await postRepo.getAllPosts();
+      emit(PostLoaded(posts: posts));
+    } catch (e) {
+      emit(PostError(message: e.toString()));
     }
   }
 

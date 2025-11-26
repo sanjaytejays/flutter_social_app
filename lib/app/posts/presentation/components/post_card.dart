@@ -67,7 +67,7 @@ class _PostCardState extends State<PostCard>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-
+    print(widget.post.authorName);
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
@@ -99,6 +99,7 @@ class _PostCardState extends State<PostCard>
                             colors: [colorScheme.primary, colorScheme.tertiary],
                           ),
                         ),
+
                         child: Container(
                           padding: const EdgeInsets.all(2),
                           decoration: BoxDecoration(
@@ -108,7 +109,9 @@ class _PostCardState extends State<PostCard>
                           child: CircleAvatar(
                             radius: 20,
                             backgroundImage: NetworkImage(
-                              widget.post.authorPic,
+                              widget.post.authorPic.isEmpty
+                                  ? 'https://ui-avatars.com/api/?name=${Uri.encodeComponent(widget.post.authorName)}&background=0D8ABC&color=fff'
+                                  : 'https://ui-avatars.com/api/?name=${Uri.encodeComponent(widget.post.authorName)}&background=0D8ABC&color=fff',
                             ),
                           ),
                         ),
@@ -196,57 +199,6 @@ class _PostCardState extends State<PostCard>
           if (widget.post.postType == PostType.media &&
               widget.post.mediaUrls.isNotEmpty)
             _buildEnhancedMediaGrid(),
-
-          // Engagement Stats
-          if (widget.post.likesCount > 0 || widget.post.commentsCount > 0)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-              child: Row(
-                children: [
-                  if (widget.post.likesCount > 0) ...[
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.favorite_rounded,
-                        size: 12,
-                        color: Colors.red,
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      _formatCount(widget.post.likesCount),
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                  const Spacer(),
-                  if (widget.post.commentsCount > 0)
-                    Text(
-                      '${_formatCount(widget.post.commentsCount)} comments',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-
-          // Divider
-          if (widget.post.likesCount > 0 || widget.post.commentsCount > 0)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Divider(
-                height: 1,
-                color: colorScheme.outlineVariant.withOpacity(0.3),
-              ),
-            ),
 
           // Action Buttons
           Padding(

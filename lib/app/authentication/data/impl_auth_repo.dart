@@ -54,12 +54,18 @@ class ImplAuthRepo implements AuthRepo {
       return null;
     }
 
+    // get user from firestore
+    DocumentSnapshot userSnapshot = await _firebaseFirestore
+        .collection("users")
+        .doc(currentUser.uid)
+        .get();
+
     // return user
     return AppUserModel(
       uid: currentUser.uid,
       email: currentUser.email!,
-      name: '',
-      accountType: '',
+      name: userSnapshot['name'],
+      accountType: userSnapshot['accountType'],
     );
   }
 
@@ -74,12 +80,18 @@ class ImplAuthRepo implements AuthRepo {
       UserCredential userCredential = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
 
+      // get user from firestore
+      DocumentSnapshot userSnapshot = await _firebaseFirestore
+          .collection("users")
+          .doc(userCredential.user!.uid)
+          .get();
+
       // create user
       AppUserModel user = AppUserModel(
         uid: userCredential.user!.uid,
         email: email,
-        name: '',
-        accountType: '',
+        name: userSnapshot['name'],
+        accountType: userSnapshot['accountType'],
       );
       // return user
       return user;
